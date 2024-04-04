@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visitor Counter</title>
+<script>
+    // Function to check if local storage is supported
+    function isLocalStorageSupported() {
+        try {
+            return 'localStorage' in window && window['localStorage'] !== null;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    // Function to increment and display the visit count
+    function incrementVisitCount() {
+        if (isLocalStorageSupported()) {
+            var visitCount = localStorage.getItem('visitCount');
+            if (visitCount === null) {
+                visitCount = 1;
+            } else {
+                visitCount = parseInt(visitCount) + 1;
+            }
+            localStorage.setItem('visitCount', visitCount);
+            document.getElementById('visitCount').innerText = visitCount;
+        } else {
+            // Local storage is not supported, handle accordingly
+            console.log("Local storage is not supported.");
+        }
+    }
+
+    // Function to initialize the visit count
+    window.onload = function() {
+        incrementVisitCount();
+    };
+</script>
+</head>
+<body>
+    <h1>Welcome to the Website</h1>
+    <p>You have visited this site <span id="visitCount">0</span> times.</p>
+</body>
+</html>
